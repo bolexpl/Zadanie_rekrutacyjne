@@ -1,0 +1,8 @@
+c30545,::1,GET,http://localhost/rekrutacja/,1555017651,bd773e,200
+bd773e,::1,GET,http://localhost/rekrutacja/,1555017651,,404
+124140,127.0.0.1,GET,http://localhost:8080/,1555018673,496b34,200
+496b34,127.0.0.1,GET,http://localhost:8080/,1555018673,,500
+402d2c,127.0.0.1,GET,http://localhost:8080/,1555018822,,302
+f373d3,127.0.0.1,GET,http://localhost:8080/login,1555018822,,200
+eeaae8,127.0.0.1,GET,http://localhost:8080/favicon.ico,1555018822,0df077,200
+0df077,127.0.0.1,GET,http://localhost:8080/favicon.ico,1555018822,,404

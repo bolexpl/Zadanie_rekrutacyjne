@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista wyników{% endblock %}
+
+{% block stylesheets %}
+  <style>
+
+  </style>
+{% endblock %}
+
+{% block body %}
+
+  <div class="row">
+    <div class="col-12">
+      <h1>Wyniki</h1>
+
+      {# paginacja #}
+      {% if maxPages > 1 %}
+        <ul class="pagination pagination-sm">
+          {# `«` arrow  #}
+          <li class="page-item {{ thisPage == 1 ? 'disabled' }}">
+            <a class="page-link"
+               href="{{ path('app_surveys2',
+                 {page: thisPage-1 < 1 ? 1 : thisPage-1,'limit':limit, 'sort':sort, 'direction':direction}) }}">«</a>
+          </li>
+
+          {# each page number #}
+          {% for i in 1..maxPages %}
+            <li class="page-item {{ thisPage == i ? 'disabled' }}">
+              <a class="page-link"
+                 href="{{ path('app_surveys2',
+                   {page: i,'limit':limit, 'sort':sort, 'direction':direction}) }}">{{ i }}</a>
+            </li>
+          {% endfor %}
+
+          {# `»` arrow #}
+          <li class="page-item {{ thisPage == maxPages ? 'disabled' }}">
+            <a class="page-link"
+               href="{{ path('app_surveys2',
+                 {page: thisPage+1 <= maxPages ? thisPage+1 : thisPage,'limit':limit, 'sort':sort, 'direction':direction}) }}">»</a>
+          </li>
+        </ul>
+      {% endif %}
+
+      <ul class="pagination pagination-sm">
+        {% for i in [10, 20, 30] %}
+          <li class="page-item {{ limit == i ? 'disabled' }}">
+            <a class="page-link"
+               href="{{ path('app_surveys2',
+                 {'page': thisPage, 'sort':sort,'limit':i, 'direction':direction}) }}">{{ i }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      {# tabela #}
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Użytkownik</th>
+          <th scope="col">
+            <a href="{{ path('app_surveys2',
+              {'page': thisPage,'limit':limit,'sort':'first_name','direction': direction=='asc'?'desc':'asc'}) }}">
+              Imię{{ sort=='first_name'? (direction=='asc'?'&uarr;':'&darr;') }}
+            </a>
+          </th>
+          <th scope="col"><a href="{{ path('app_surveys2',
+              {'page': thisPage,'limit':limit,'sort':'last_name','direction': direction=='asc'?'desc':'asc'}) }}">
+              Nazwisko {{ sort=='last_name'? (direction=='asc'?'&uarr;':'&darr;') }}
+            </a></th>
+          <th scope="col"><a href="{{ path('app_surveys2',
+              {'page': thisPage,'limit':limit,'sort':'age','direction': direction=='asc'?'desc':'asc'}) }}">
+              Wiek {{ sort=='age'? (direction=='asc'?'&uarr;':'&darr;') }}
+            </a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for s in surveys %}
+          <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ s.user.username }}</td>
+            <td>{{ s.firstName }}</td>
+            <td>{{ s.lastName }}</td>
+            <td>{{ s.age }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+{% endblock %}
